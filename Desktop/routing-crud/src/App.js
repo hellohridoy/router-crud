@@ -4,6 +4,7 @@ import Contact from "./components/pages/Contact";
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import Navbar from "./components/layout/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NotFound from "./components/pages/NotFound";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/not-found" element={<NotFound />} />
         </Routes>
       </div>
     </Router>
