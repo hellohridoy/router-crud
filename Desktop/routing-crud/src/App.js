@@ -5,6 +5,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import Navbar from "./components/layout/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NotFound from "./components/pages/NotFound";
+import AddUser from "./components/users/AddUser";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/about" element={<About />} />
           <Route exact path="/contact" element={<Contact />} />
+          <Route exact path="/users/add" element={<AddUser />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

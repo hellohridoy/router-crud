@@ -36,6 +36,11 @@ export default function Navbar() {
                 Contact
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/users/add">
+                Add Users
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
