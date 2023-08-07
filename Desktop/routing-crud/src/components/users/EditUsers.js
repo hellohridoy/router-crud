@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddUser = () => {
+const EditUsers = () => {
+  const { id } = useParams();
+  //alert(id);
   const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
@@ -14,26 +16,36 @@ const AddUser = () => {
 
   const { name, username, email, phone, website } = user;
   const onInputChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.value]: e.target.value });
+    console.log(setUser({ ...user, [e.target.name]: e.target.value }));
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:3003/users", user);
+    await axios.put(`http://localhost:3003/users/${id}`, user);
     navigate("/");
   };
+
+  const loadUser = async () => {
+    const result = await axios.get(`http://localhost:3003/users/${id}`);
+    setUser(result.data);
+  };
+
+  useEffect(() => {
+    loadUser();
+  }, []);
   return (
     <div className="container">
       <div className="w-75 mx-auto shadow p-5">
-        <h2 className="text-center mb-4">Add A User</h2>
+        <h2 className="text-center mb-4">Edit A User</h2>
         <form onSubmit={(e) => onSubmit(e)}>
           <div className="form-group" style={{ margin: "12px" }}>
             <input
               type="text"
               className="form-control form-control-lg"
               placeholder="Enter Your Name"
-              required
               name="name"
+              required
               value={name}
               onChange={(e) => onInputChange(e)}
             />
@@ -44,7 +56,6 @@ const AddUser = () => {
               className="form-control form-control-lg"
               placeholder="Enter Your Username"
               name="username"
-              required
               value={username}
               onChange={(e) => onInputChange(e)}
             />
@@ -56,7 +67,6 @@ const AddUser = () => {
               placeholder="Enter Your E-mail Address"
               name="email"
               value={email}
-              required
               onChange={(e) => onInputChange(e)}
             />
           </div>
@@ -81,10 +91,10 @@ const AddUser = () => {
             />
           </div>
           <button
-            className="btn btn-primary btn-block"
+            className="btn btn-warning btn-block"
             style={{ margin: "12px" }}
           >
-            Add User
+            Update User
           </button>
         </form>
       </div>
@@ -92,4 +102,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default EditUsers;
